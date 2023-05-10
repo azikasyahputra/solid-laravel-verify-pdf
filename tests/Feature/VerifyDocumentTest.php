@@ -174,4 +174,84 @@ class VerifyDocumentTest extends TestCase
 
         $verifyDocument->assertStatus(200);
     }
+
+    public function test_verify_document_type_invalid_file_type(): void
+    {
+        $registerUser = $this->post('/api/register', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+        ]);
+
+        $registerUser->assertStatus(200);
+
+        $loginUser = $this->post('/api/login', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+        ]);
+
+        $loginUser->assertStatus(200);
+
+        $token = $loginUser->json()['data'];
+
+        $filename = 'invalid_file_type.txt';
+        $tempfile = new File(public_path($filename));
+
+        $files = new UploadedFile(
+            $tempfile->getPathname(),
+            $tempfile->getFilename(),
+            $tempfile->getMimeType(),
+            0,
+            true
+        );
+
+        $verifyDocument = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/verify_document', [
+            'document' => $files
+        ]);
+
+        $verifyDocument->assertStatus(422);
+    }
+
+    public function test_verify_document_type_invalid_document(): void
+    {
+        $registerUser = $this->post('/api/register', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+        ]);
+
+        $registerUser->assertStatus(200);
+
+        $loginUser = $this->post('/api/login', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+        ]);
+
+        $loginUser->assertStatus(200);
+
+        $token = $loginUser->json()['data'];
+
+        $filename = 'invalid_document.json';
+        $tempfile = new File(public_path($filename));
+
+        $files = new UploadedFile(
+            $tempfile->getPathname(),
+            $tempfile->getFilename(),
+            $tempfile->getMimeType(),
+            0,
+            true
+        );
+
+        $verifyDocument = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/verify_document', [
+            'document' => $files
+        ]);
+
+        $verifyDocument->assertStatus(422);
+    }
 }

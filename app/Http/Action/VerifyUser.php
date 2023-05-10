@@ -12,10 +12,6 @@ class VerifyUser
     {
         $token = auth()->guard('api')->attempt(['email' => $request->email, 'password' => $request->password]);
 
-        if ($token) {
-            return $token;
-        } else {
-            return self::ERROR_INVALID_USER;
-        }
+        return $token ? $token : self::ERROR_INVALID_USER;
     }
 }

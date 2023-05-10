@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use App\Models\User;
@@ -18,7 +17,7 @@ class LoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->post('/api/login', [
+        $response = $this->post('api/login', [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -30,7 +29,7 @@ class LoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->post('/login', [
+        $response = $this->post('api/login', [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
@@ -40,9 +39,7 @@ class LoginTest extends TestCase
 
     public function test_user_login_invalid_email(): void
     {
-        $user = User::factory()->create();
-
-        $this->post('/login', [
+        $response = $this->post('api/login', [
             'email' => 'testing@gmail.com',
             'password' => 'password',
         ]);
@@ -52,9 +49,7 @@ class LoginTest extends TestCase
 
     public function test_user_login_invalid(): void
     {
-        $user = User::factory()->create();
-
-        $this->post('/login', [
+        $response = $this->post('api/login', [
             'email' => 'testing@gmail.com',
             'password' => 'wrong-password',
         ]);
@@ -64,9 +59,7 @@ class LoginTest extends TestCase
 
     public function test_user_login_invalid_empty(): void
     {
-        $user = User::factory()->create();
-
-        $this->post('/login', [
+        $response = $this->post('api/login', [
             'email' => '',
             'password' => '',
         ]);

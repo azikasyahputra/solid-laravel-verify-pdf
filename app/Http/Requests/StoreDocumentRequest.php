@@ -13,7 +13,7 @@ class StoreDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'document' => ['required', File::types(['json'])],
+            'document' => ['required', File::types(['json']), 'max:2048'],
         ];
     }
 

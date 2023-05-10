@@ -2,17 +2,15 @@
 
 namespace App\Http\Action;
 
+use App\Http\DataTransferObject\DocumentIssuer;
+
 class CheckIssuer
 {
-    public function __invoke(Object $document): bool
+    public function __invoke(DocumentIssuer $request): bool
     {
-        $issuerName = isset($document->data->issuer->name);
-        $issuerIdentityProof = isset($document->data->issuer->identityProof);
+        $issuerName = isset($request->name);
+        $issuerIdentityProof = isset($request->identityProof);
 
-        if ($issuerName && $issuerIdentityProof) {
-            return true;
-        } else {
-            return false;
-        }
+        return $issuerName && $issuerIdentityProof;
     }
 }

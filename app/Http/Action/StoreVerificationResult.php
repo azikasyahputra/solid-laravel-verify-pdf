@@ -11,10 +11,6 @@ class StoreVerificationResult
     {
         $store = VerificationResult::store($request);
 
-        if ($store) {
-            return true;
-        } else {
-            return false;
-        }
+        return $store ? true : false;
     }
 }

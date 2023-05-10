@@ -2,17 +2,15 @@
 
 namespace App\Http\Action;
 
+use App\Http\DataTransferObject\DocumentRecipient;
+
 class CheckRecipient
 {
-    public function __invoke(Object $document): bool
+    public function __invoke(DocumentRecipient $request): bool
     {
-        $recipientName = isset($document->data->recipient->name);
-        $recipientEmail = isset($document->data->recipient->email);
+        $recipientName = isset($request->name);
+        $recipientEmail = isset($request->email);
 
-        if ($recipientName && $recipientEmail) {
-            return true;
-        } else {
-            return false;
-        }
+        return $recipientName && $recipientEmail;
     }
 }

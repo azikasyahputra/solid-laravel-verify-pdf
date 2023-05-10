@@ -3,20 +3,19 @@
 namespace App\Http\Action;
 
 use Illuminate\Support\Facades\Http;
+use App\Http\DataTransferObject\DocumentIssuer;
 
 class CheckIdentityProof
 {
-    public function __invoke(Object $document): bool
+    public function __invoke(DocumentIssuer $request): bool
     {
         $valid = false;
 
-        $issuerLocation = isset($document->data->issuer->identityProof->location) ? $document->data->issuer->identityProof->location : '';
-        $issuerIdentityProofKey = isset($document->data->issuer->identityProof->key) ? $document->data->issuer->identityProof->key : '';
+        $issuerLocation = isset($request->identityProof->location) ? $request->identityProof->location : '';
+        $issuerIdentityProofKey = isset($request->identityProof->key) ? $request->identityProof->key : '';
 
         $response = Http::get("https://dns.google/resolve?name={$issuerLocation}&type=TXT");
-        if (!$response->ok()) {
-            return $valid;
-        } else {
+        if ($response->ok()) {
             $responseDns = $response->json();
             $answersDns = $responseDns['Answer'];
             foreach ($answersDns as $answerDns) {
@@ -25,7 +24,7 @@ class CheckIdentityProof
                     break;
                 }
             }
-            return $valid;
         }
+        return $valid;
     }
 }

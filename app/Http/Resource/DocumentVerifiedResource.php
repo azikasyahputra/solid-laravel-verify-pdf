@@ -9,11 +9,11 @@ use Illuminate\Http\JsonResponse;
 
 class DocumentVerifiedResource extends JsonResource
 {
-    public function toArray($request): array 
+    public function toArray($request): array
     {
-        return[
-            "issuer"=>$this->issuer,
-            "result"=>$this->result 
+        return [
+            "issuer" => $this->issuer,
+            "result" => $this->result
         ];
     }
 }

@@ -14,10 +14,6 @@ class StoreUser
     {
         $store = User::store($request);
 
-        if ($store) {
-            return self::SUCCESS_SAVING;
-        } else {
-            return self::ERROR_SAVING;
-        }
+        return $store ? self::SUCCESS_SAVING : self::ERROR_SAVING;
     }
 }
