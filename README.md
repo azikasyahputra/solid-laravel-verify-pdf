@@ -9,8 +9,8 @@ Tools: POSTMAN
 
 API Documentation:
 
+<pre>
 Register:
-<br>
 URL: localhost/api/login
 Method: POST
 Body:
@@ -19,6 +19,7 @@ Body:
 "email": "admin@gmail.com",
 "password": "12345678",
 }
+</pre>
 
 Login:
 URL: localhost/api/login
