@@ -10,6 +10,7 @@ Tools: POSTMAN
 API Documentation:
 
 Register:
+<br>
 URL: localhost/api/login
 Method: POST
 Body:
