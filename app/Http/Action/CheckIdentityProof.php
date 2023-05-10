@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Action;
+
 use Illuminate\Support\Facades\Http;
 
 class CheckIdentityProof
@@ -8,7 +9,7 @@ class CheckIdentityProof
     public function __invoke(Object $document): bool
     {
         $valid = false;
-        
+
         $issuerLocation = isset($document->data->issuer->identityProof->location) ? $document->data->issuer->identityProof->location : '';
         $issuerIdentityProofKey = isset($document->data->issuer->identityProof->key) ? $document->data->issuer->identityProof->key : '';
 
@@ -18,8 +19,8 @@ class CheckIdentityProof
         } else {
             $responseDns = $response->json();
             $answersDns = $responseDns['Answer'];
-            foreach($answersDns as $answerDns){
-                if(str_contains($answerDns['data'],$issuerIdentityProofKey)){
+            foreach ($answersDns as $answerDns) {
+                if (str_contains($answerDns['data'], $issuerIdentityProofKey)) {
                     $valid = true;
                     break;
                 }
