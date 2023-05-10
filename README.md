@@ -5,6 +5,11 @@ How to run this project:
 3. ./vendor/bin/sail artisan jwt:secret
 4. ./vendor/bin/sail artisan migrate
 
+Check Coverage Test:
+
+1. ./vendor/bin/sail artisan test --coverage
+
+Diagram: public/diagram
 Tools: POSTMAN
 
 API Documentation:
