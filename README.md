@@ -21,6 +21,7 @@ Body:
 }
 </pre>
 
+<pre>
 Login:
 URL: localhost/api/login
 Method: POST
@@ -29,7 +30,9 @@ Body:
 "email": "admin@gmail.com",
 "password": "12345678",
 }
+</pre>
 
+<pre>
 Logout:
 URL: localhost/api/logout
 Method: POST
@@ -41,7 +44,9 @@ Body:
 "email": "admin@gmail.com",
 "password": "12345678",
 }
+</pre>
 
+<pre>
 Verify Document:
 URL: localhost/api/verify_document
 Method: POST
@@ -52,3 +57,4 @@ Body:
 {
 "document": File
 }
+</pre>
